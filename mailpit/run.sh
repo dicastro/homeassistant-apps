@@ -5,50 +5,45 @@
 # Runs the Mailpit application
 # ==============================================================================
 
-export MP_DATABASE="/data/mailpit.db"
-export MP_UI_BIND_ADDR=0.0.0.0:8025
-export MP_SMTP_AUTH_ALLOW_INSECURE=1
-export TZ=$(bashio::config 'timezone')
+OPTIONS_FILE="/data/options.json"
 
-build_auth_list() {
-    local CONFIG_KEY=$1
-    local RESULT=""
-
-    local COUNT
-    COUNT=$(bashio::config "${CONFIG_KEY} | length")
-
-    for ((i=0;i<COUNT;i++)); do
-        USER=$(bashio::config "${CONFIG_KEY}[${i}].user")
-        PASS=$(bashio::config "${CONFIG_KEY}[${i}].pass")
-
-        if [[ -n "$USER" && -n "$PASS" ]]; then
-            RESULT="${RESULT}${USER}:${PASS} "
-        fi
-    done
-
-    echo "${RESULT}" | xargs
+# Helper to extract a top-level string value from JSON
+# Usage: get_opt "key"
+get_opt() {
+    grep -o "\"$1\": *\"[^\"]*\"" "$OPTIONS_FILE" | cut -d'"' -f4
 }
 
-UI_AUTH=$(build_auth_list "ui_auth")
-SMTP_AUTH=$(build_auth_list "smtp_auth")
-POP3_AUTH=$(build_auth_list "pop3_auth")
+# Helper to parse the auth arrays (user/pass objects)
+# This uses sed to flatten the JSON into "user:pass" lines
+parse_auth() {
+    local KEY="$1"
+    # 1. Find the lines between the key and the end of its array
+    # 2. Extract user/pass pairs and format as user:pass
+    sed -n "/\"$KEY\"/,/\]/p" "$OPTIONS_FILE" | \
+    sed -n 's/.*"user": *"\([^"]*\)".*"pass": *"\([^"]*\)".*/\1:\2/p' | \
+    tr '\n' ' '
+}
 
-if [[ -n "$UI_AUTH" ]]; then
-    export MP_UI_AUTH="$UI_AUTH"
-    bashio::log.info "UI authentication enabled"
-fi
 
-if [[ -n "$SMTP_AUTH" ]]; then
-    export MP_SMTP_AUTH="$SMTP_AUTH"
-    bashio::log.info "SMTP authentication enabled"
-fi
+# Standard Mailpit Env Vars
+export MP_DATABASE="/data/mailpit.db"
+export MP_UI_BIND_ADDR="0.0.0.0:8025"
+export MP_SMTP_AUTH_ALLOW_INSECURE=1
 
-if [[ -n "$POP3_AUTH" ]]; then
-    export MP_POP3_AUTH="$POP3_AUTH"
-    bashio::log.info "POP3 authentication enabled"
-fi
+# Timezone (using the helper)
+TZ_VAL=$(get_opt "timezone")
+[ -n "$TZ_VAL" ] && export TZ="$TZ_VAL"
 
-ENTRYPOINT=$(cat /original-entrypoint)
-CMD=$(cat /original-cmd)
+# Auth Lists
+UI_AUTH=$(parse_auth "ui_auth")
+SMTP_AUTH=$(parse_auth "smtp_auth")
+POP3_AUTH=$(parse_auth "pop3_auth")
+
+[ -n "$UI_AUTH" ]   && export MP_UI_AUTH="$UI_AUTH"
+[ -n "$SMTP_AUTH" ] && export MP_SMTP_AUTH="$SMTP_AUTH"
+[ -n "$POP3_AUTH" ] && export MP_POP3_AUTH="$POP3_AUTH"
+
+ENTRYPOINT=$(cat /original-entrypoint 2>/dev/null)
+CMD=$(cat /original-cmd 2>/dev/null)
 
 exec ${ENTRYPOINT} ${CMD}

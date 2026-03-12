@@ -1,11 +1,14 @@
-ARG BUILD_FROM=ghcr.io/axllent/mailpit:v1.29.3
+ARG BUILD_FROM
 
-FROM $BUILD_FROM
+FROM ${BUILD_FROM}
+
+ARG ORIGINAL_ENTRYPOINT
+ARG ORIGINAL_CMD
+
+RUN echo "${ORIGINAL_ENTRYPOINT}" > /original-entrypoint && \
+    echo "${ORIGINAL_CMD}" > /original-cmd
 
 COPY run.sh /
-COPY original-entrypoint /
-COPY original-cmd /
-
 RUN chmod a+x /run.sh
 
 ENTRYPOINT [ "/run.sh" ]
