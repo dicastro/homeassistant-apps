@@ -18,3 +18,5 @@ TBD
 8. Fill the signup form
 9. Use the 'non-superuser' user to manage recipes
 10. Delete the 'tandoorrecipes' stack from portainer and run the next ansible playbook in order to have a running instance with signups disabled
+
+https://docs.tandoor.dev/system/configuration

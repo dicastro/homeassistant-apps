@@ -27,3 +27,7 @@ An [online tool](https://emn178.github.io/online-tools/sha1.html) can be used to
 For example this repo `https://github.com/dicastro/homeassistant-apps` has the hash `1da1ede79372013ce13f7daec6a59afa74b101d9`
 
 The 8 first digits have to be used to reference that repo: `1da1ede7`
+
+## How to develop an app
+
+https://developers.home-assistant.io/docs/apps

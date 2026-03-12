@@ -11,7 +11,7 @@ backup: cold
 
 arch:
   - amd64
-  - arm64
+  - aarch64
 
 ports:
   8080/tcp: null
