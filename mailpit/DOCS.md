@@ -26,7 +26,7 @@ pop3_auth: "pop3user:pop3pass anotherpop3user:anotherpop3userpass"
 
 **Note**: _This is just an example, don't copy and paste it! Create your own!_
 
-## Option: `timezone`
+### Option: `timezone`
 
 Establishes a timezone
 
@@ -36,3 +36,7 @@ https://mailpit.axllent.org/docs/configuration/
 
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=1da1ede7_mailpit&repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps
+
+## Known issues and limitations
+
+- This app cannot support Ingress at this time due to technical limitations of the Mailpit web interface

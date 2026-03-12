@@ -35,18 +35,18 @@ map:
 
 schema:
   timezone: "str"
-  ui_auth: "match(^([^: ]+:[^: ]+)( [^: ]+:[^: ]+)*$)?"
-  smtp_auth: "match(^([^: ]+:[^: ]+)( [^: ]+:[^: ]+)*$)?"
-  pop3_auth: "match(^([^: ]+:[^: ]+)( [^: ]+:[^: ]+)*$)?"
+  ui_auth:
+    - user: str?
+      pass: password?
+  smtp_auth:
+    - user: str?
+      pass: password?
+  pop3_auth:
+    - user: str?
+      pass: password?
 
 options:
   timezone: "Etc/UTC"
-
-environment:
-  MP_DATABASE: "/data/mailpit.db"
-  MP_SMTP_AUTH_ALLOW_INSECURE: "1"
-  MP_UI_BIND_ADDR: "0.0.0.0:8025"
-  TZ: "{timezone}"
-  MP_UI_AUTH: "{ui_auth}"
-  MP_SMTP_AUTH: "{smtp_auth}"
-  MP_POP3_AUTH: "{pop3_auth}"
+  ui_auth: []
+  smtp_auth: []
+  pop3_auth: []
