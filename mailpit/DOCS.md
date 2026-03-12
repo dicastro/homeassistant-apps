@@ -32,7 +32,17 @@ Establishes a timezone
 
 You can get a list of timezones [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
+## Links
+
 https://mailpit.axllent.org/docs/configuration/
+
+## Development notes
+
+### How to see environment variables of main process
+
+```
+cat /proc/1/environ | tr '\0' '\n'
+```
 
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
 [addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=1da1ede7_mailpit&repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps

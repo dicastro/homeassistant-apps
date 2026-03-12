@@ -16,12 +16,18 @@ get_opt() {
 # Helper to parse the auth arrays (user/pass objects)
 # This uses sed to flatten the JSON into "user:pass" lines
 parse_auth() {
-    local KEY="$1"
-    # 1. Find the lines between the key and the end of its array
-    # 2. Extract user/pass pairs and format as user:pass
+    KEY="$1"
+    # 1. Isolate the array block for the key
+    # 2. Use 'awk' to treat everything between { } as a single record
+    # 3. Extract the value for "user" and "pass" from that record
     sed -n "/\"$KEY\"/,/\]/p" "$OPTIONS_FILE" | \
-    sed -n 's/.*"user": *"\([^"]*\)".*"pass": *"\([^"]*\)".*/\1:\2/p' | \
-    tr '\n' ' '
+    awk -v RS='}' '
+        /"user"/ && /"pass"/ {
+            u=$0; sub(/.*"user": *"/, "", u); sub(/".*/, "", u);
+            p=$0; sub(/.*"pass": *"/, "", p); sub(/".*/, "", p);
+            printf "%s:%s ", u, p
+        }
+    ' | sed 's/ $//'
 }
 
 
