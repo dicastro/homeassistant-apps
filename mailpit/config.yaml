@@ -48,6 +48,8 @@ options:
 environment:
   MP_DATABASE: "/data/mailpit.db"
   MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+  MP_UI_BIND_ADDR: "0.0.0.0:8025"
+  MP_WEBROOT: "{ingress_entry}"
   TZ: "{timezone}"
   MP_SMTP_AUTH: "{smtp_auth}"
   MP_POP3_AUTH: "{pop3_auth}"
