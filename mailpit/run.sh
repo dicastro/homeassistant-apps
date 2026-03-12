@@ -1,5 +1,5 @@
 #!/bin/sh
-# shellcheck shell=bash
+# shellcheck shell=sh
 # ==============================================================================
 # My Home Assistant App: Mailpit
 # Runs the Mailpit application
@@ -17,17 +17,16 @@ get_opt() {
 # This uses sed to flatten the JSON into "user:pass" lines
 parse_auth() {
     KEY="$1"
-    # 1. Isolate the array block for the key
-    # 2. Use 'awk' to treat everything between { } as a single record
-    # 3. Extract the value for "user" and "pass" from that record
-    sed -n "/\"$KEY\"/,/\]/p" "$OPTIONS_FILE" | \
-    awk -v RS='}' '
-        /"user"/ && /"pass"/ {
-            u=$0; sub(/.*"user": *"/, "", u); sub(/".*/, "", u);
-            p=$0; sub(/.*"pass": *"/, "", p); sub(/".*/, "", p);
-            printf "%s:%s ", u, p
+    # 1. Isolate the block (e.g., ui_auth)
+    # 2. Extract values into u/p buffers, then print when the object } ends
+    sed -n "/\"$KEY\"/,/\]/p" "$OPTIONS_FILE" | awk '
+        /"user":/ { split($0, a, "\""); u=a[4] }
+        /"pass":/ { split($0, a, "\""); p=a[4] }
+        /\}/ {
+            if (u != "" && p != "") printf "%s:%s ", u, p;
+            u=""; p=""
         }
-    ' | sed 's/ $//'
+    ' | sed 's/ $//' | tr -d '\r\n'
 }
 
 
@@ -42,12 +41,28 @@ TZ_VAL=$(get_opt "timezone")
 
 # Auth Lists
 UI_AUTH=$(parse_auth "ui_auth")
-SMTP_AUTH=$(parse_auth "smtp_auth")
-POP3_AUTH=$(parse_auth "pop3_auth")
+if [ -z "$UI_AUTH" ]; then
+    echo "No UI authentication configured"
+else
+    export MP_UI_AUTH="$UI_AUTH"
+    echo "UI authentication enabled for users"
+fi
 
-[ -n "$UI_AUTH" ]   && export MP_UI_AUTH="$UI_AUTH"
-[ -n "$SMTP_AUTH" ] && export MP_SMTP_AUTH="$SMTP_AUTH"
-[ -n "$POP3_AUTH" ] && export MP_POP3_AUTH="$POP3_AUTH"
+SMTP_AUTH=$(parse_auth "smtp_auth")
+if [ -z "$SMTP_AUTH" ]; then
+    echo "No SMTP authentication configured"
+else
+    export MP_SMTP_AUTH="$SMTP_AUTH"
+    echo "SMTP authentication enabled for users"
+fi
+
+POP3_AUTH=$(parse_auth "pop3_auth")
+if [ -z "$POP3_AUTH" ]; then
+    echo "No POP3 authentication configured"
+else
+    export MP_POP3_AUTH="$POP3_AUTH"
+    echo "POP3 authentication enabled for users"
+fi
 
 ENTRYPOINT=$(cat /original-entrypoint 2>/dev/null)
 CMD=$(cat /original-cmd 2>/dev/null)
