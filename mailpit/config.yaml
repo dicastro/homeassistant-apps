@@ -13,12 +13,8 @@ arch:
   - amd64
   - aarch64
 
-ingress: true
-ingress_port: 8025
-panel_icon: mdi:email
-panel_title: Mailpit
-
 ports:
+  8025/tcp: null
   1025/tcp: null
   1110/tcp: null
 
@@ -39,6 +35,7 @@ map:
 
 schema:
   timezone: "str"
+  ui_auth: "match(^([^: ]+:[^: ]+)( [^: ]+:[^: ]+)*$)?"
   smtp_auth: "match(^([^: ]+:[^: ]+)( [^: ]+:[^: ]+)*$)?"
   pop3_auth: "match(^([^: ]+:[^: ]+)( [^: ]+:[^: ]+)*$)?"
 
@@ -49,7 +46,7 @@ environment:
   MP_DATABASE: "/data/mailpit.db"
   MP_SMTP_AUTH_ALLOW_INSECURE: "1"
   MP_UI_BIND_ADDR: "0.0.0.0:8025"
-  MP_WEBROOT: "{ingress_entry}"
   TZ: "{timezone}"
+  MP_UI_AUTH: "{ui_auth}"
   MP_SMTP_AUTH: "{smtp_auth}"
   MP_POP3_AUTH: "{pop3_auth}"
