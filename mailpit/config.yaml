@@ -1,0 +1,53 @@
+name: "Mailpit"
+description: "Run the latest stable version of Mailpit"
+url: "https://mailpit.axllent.org"
+
+slug: "mailpit"
+
+startup: application
+boot: auto
+init: false
+backup: cold
+
+arch:
+  - amd64
+  - arm64
+
+ingress: true
+ingress_port: 8025
+panel_icon: mdi:email
+panel_title: Mailpit
+
+ports:
+  1025/tcp: null
+  1110/tcp: null
+
+ports_description:
+  8025/tcp: Web Interface
+  1025/tcp: SMTP Port
+  1110/tcp: POP3 Port
+
+webui: "http://[HOST]:[PORT:8025]"
+
+image: ghcr.io/axllent/mailpit
+version: v1.29.3
+
+map:
+  - type: data
+    read_only: false
+    path: /data
+
+schema:
+  timezone: "str"
+  smtp_auth: "match(^([^: ]+:[^: ]+)( [^: ]+:[^: ]+)*$)?"
+  pop3_auth: "match(^([^: ]+:[^: ]+)( [^: ]+:[^: ]+)*$)?"
+
+options:
+  timezone: "Etc/UTC"
+
+environment:
+  MP_DATABASE: "/data/mailpit.db"
+  MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+  TZ: "{timezone}"
+  MP_SMTP_AUTH: "{smtp_auth}"
+  MP_POP3_AUTH: "{pop3_auth}"

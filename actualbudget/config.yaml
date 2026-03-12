@@ -1,0 +1,30 @@
+name: "Actual Budget"
+description: "Run the latest stable version of Actual Budget"
+url: "https://actualbudget.org"
+
+slug: "actualbudget"
+
+startup: application
+boot: auto
+init: false
+backup: cold
+
+arch:
+  - amd64
+  - arm64
+
+ports:
+  5006/tcp: null
+
+ports_description:
+  5006/tcp: Web Interface
+
+webui: "http://[HOST]:[PORT:5006]"
+
+image: ghcr.io/actualbudget/actual
+version: 26.3.0
+
+map:
+  - type: data
+    read_only: false
+    path: /data
