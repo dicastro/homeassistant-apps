@@ -5,8 +5,16 @@
 # Runs the Tandoor Recipes application
 # ==============================================================================
 
-OPTIONS_FILE="/opt/recipes/options.json"
-SECRET_FILE="/opt/recipes/tandoor_secret.txt"
+DATA_DIR="/data"
+OPTIONS_FILE="$DATA_DIR/options.json"
+SECRET_KEY_FILE="$DATA_DIR/tandoor_secret_key.txt"
+
+MEDIA_ROOT="$DATA_DIR/mediafiles"
+STATIC_ROOT="$DATA_DIR/staticfiles"
+
+mkdir -p "$MEDIA_ROOT" "$STATIC_ROOT"
+
+export MEDIA_ROOT STATIC_ROOT
 
 # Helper to extract a top-level string value from OPTIONS_FILE JSON
 # Usage: get_opt "key"
@@ -17,6 +25,8 @@ get_opt() {
 
 # Fixed Tandoor Recipes Env Vars
 export DB_ENGINE="django.db.backends.sqlite3"
+export DATABASE_URL="sqlite:///$DATA_DIR/db.sqlite3"
+export TANDOOR_PORT=8080
 
 # Timezone
 TZ_VAL=$(get_opt "timezone")
@@ -31,14 +41,11 @@ case "$ENABLE_SIGNUP_VAL" in
 esac
 
 # Secret key
-if [ -s "$SECRET_FILE" ]; then
-    SECRET_KEY=$(cat "$SECRET_FILE")
-else
-    SECRET_KEY=$(head -c 128 /dev/urandom | tr -dc 'A-Za-z0-9' | head -c 64)
-    printf "%s" "$SECRET_KEY" > "$SECRET_FILE"
+if [ ! -s "$SECRET_KEY_FILE" ]; then
+    tr -dc 'A-Za-z0-9' </dev/urandom | head -c 64 > "$SECRET_KEY_FILE"
 fi
 
-export SECRET_KEY
+export SECRET_KEY_FILE
 
 # Allowed hosts
 ALLOWED_HOSTS_VAL=$(

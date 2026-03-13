@@ -24,7 +24,7 @@ version: 2.5.3
 map:
   - type: data
     read_only: false
-    path: /opt/recipes
+    path: /data
 
 schema:
   timezone: "str"
