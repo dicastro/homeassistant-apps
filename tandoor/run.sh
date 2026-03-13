@@ -49,11 +49,14 @@ export SECRET_KEY_FILE
 
 # Allowed hosts
 ALLOWED_HOSTS_VAL=$(
-sed -n '/"allowed_hosts"/,/\]/p' "$OPTIONS_FILE" |   # grab the array block
-tail -n +2 |                                         # skip the first line containing the key
-grep -o '"[^"]\+"' |                                 # match quoted strings
-tr -d '"' |                                          # remove quotes
-paste -sd "," -                                      # join with commas
+sed -n '/"allowed_hosts"/,/]/p' "$OPTIONS_FILE" |  # grab lines from key to closing ]
+tr -d '\n' |                                       # join into a single line
+sed -E 's/.*\[\s*(.*)\s*\].*/\1/' |                # extract contents inside [ ... ]
+tr -d ' ' |                                        # remove spaces
+tr -d '"' |                                        # remove quotes
+tr ',' '\n' |                                      # split by commas
+grep -v '^$' |                                     # remove empty entries
+paste -sd "," -                                    # join as comma-separated
 )
 
 [ -n "$ALLOWED_HOSTS_VAL" ] && export ALLOWED_HOSTS="$ALLOWED_HOSTS_VAL"
