@@ -25,7 +25,7 @@ get_opt() {
 
 # Fixed Tandoor Recipes Env Vars
 export DB_ENGINE="django.db.backends.sqlite3"
-export DATABASE_URL="sqlite:///$DATA_DIR/db.sqlite3"
+export DATABASE_URL="sqlite://fake-host-just-to-match-regex-in-settings.py/$DATA_DIR/db.sqlite3"
 export TANDOOR_PORT=8080
 
 # Timezone
