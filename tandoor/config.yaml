@@ -29,9 +29,9 @@ map:
 schema:
   timezone: "str"
   enable_signup: "bool"
-  allowed_hosts:
+  allowed_hosts?:
     - "str"
-  email:
+  email?:
     host: "str?"
     port: "int?"
     user: "str?"
