@@ -19,9 +19,6 @@ ports:
 ports_description:
   8080/tcp: Web Interface
 
-webui: "http://[HOST]:[PORT:8080]"
-
-image: ghcr.io/tandoorrecipes/recipes
 version: 2.5.3
 
 map:
@@ -30,30 +27,18 @@ map:
     path: /opt/recipes
 
 schema:
-  secret_key: "password"
-  allowed_hosts: "str"
-  enable_signup: "list(0|1)"
   timezone: "str"
-  email_host: "str?"
-  email_port: "int?"
-  email_user: "str?"
-  email_password: "password?"
-  email_use_tls: "list(0|1)?"
-  default_from_email: "str?"
+  enable_signup: "bool"
+  allowed_hosts:
+    - "str"
+  email:
+    host: "str?"
+    port: "int?"
+    user: "str?"
+    password: "password?"
+    use_tls: "bool?"
+    default_from_email: "str?"
 
 options:
-  enable_signup: 1
   timezone: "Etc/UTC"
-
-environment:
-  DB_ENGINE: "django.db.backends.sqlite3"
-  SECRET_KEY: "{secret_key}"
-  ALLOWED_HOSTS: "{allowed_hosts}"
-  ENABLE_SIGNUP: "{enable_signup}"
-  TZ: "{timezone}"
-  EMAIL_HOST: "{email_host}"
-  EMAIL_PORT: "{email_port}"
-  EMAIL_HOST_USER: "{email_host_user}"
-  EMAIL_HOST_PASSWORD: "{email_host_password}"
-  EMAIL_USE_TLS: "{email_use_tls}"
-  DEFAULT_FROM_EMAIL: "{default_from_email}"
+  enable_signup: "true"

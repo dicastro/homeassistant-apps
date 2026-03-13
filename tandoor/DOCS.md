@@ -4,6 +4,8 @@
 
 TBD
 
+Activate WebSocket support in NGINX Proxy Manager
+
 ## Configuration
 
 TBD

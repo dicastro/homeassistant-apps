@@ -28,6 +28,10 @@ For example this repo `https://github.com/dicastro/homeassistant-apps` has the h
 
 The 8 first digits have to be used to reference that repo: `1da1ede7`
 
-## How to develop an app
+## How to develop an App
 
 https://developers.home-assistant.io/docs/apps
+
+## Official Community Apps
+
+https://github.com/hassio-addons/repository

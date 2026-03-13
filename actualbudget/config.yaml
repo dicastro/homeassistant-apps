@@ -19,8 +19,6 @@ ports:
 ports_description:
   5006/tcp: Web Interface
 
-webui: "http://[HOST]:[PORT:5006]"
-
 image: ghcr.io/actualbudget/actual
 version: 26.3.0
 

@@ -23,8 +23,6 @@ ports_description:
   1025/tcp: SMTP Port
   1110/tcp: POP3 Port
 
-webui: "http://[HOST]:[PORT:8025]"
-
 version: v1.29.3
 
 map:

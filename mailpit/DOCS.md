@@ -12,6 +12,8 @@ comparison to installing any other Home Assistant app.
 4. Check the logs of the "Mailpit" app to see if everything went well
 5. Click the "OPEN WEB UI" button to open Mailpit
 
+Activate WebSocket support in NGINX Proxy Manager
+
 ## Configuration
 
 **Note**: _Remember to restart the app when the configuration is changed._
