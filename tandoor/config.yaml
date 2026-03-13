@@ -42,3 +42,5 @@ schema:
 options:
   timezone: "Etc/UTC"
   enable_signup: "true"
+  allowed_hosts: []
+  email: {}
