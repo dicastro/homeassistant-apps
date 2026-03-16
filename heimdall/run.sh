@@ -16,8 +16,14 @@ get_opt() {
 }
 
 # Fixed Heimdall Env Vars
-export PUID="0"
-export PGID="0"
+export PUID="1000"
+export PGID="1000"
+
+# Ensure that data files are owned by the user running heimdall process
+if [ -d "$DATA_DIR" ]; then
+  echo "[Wrapper] Adjusting permissions in data dir at $DATA_DIR for UID:$PUID GID:$PGID..."
+  chown -R "$PUID":"$PGID" "$DATA_DIR"
+fi
 
 # Timezone
 TZ_VAL=$(get_opt "timezone")
