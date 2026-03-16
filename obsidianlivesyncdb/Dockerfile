@@ -2,6 +2,8 @@ ARG BUILD_FROM
 
 FROM ${BUILD_FROM}
 
+USER root
+
 # Install curl (required depencency by the livesync configuration script)
 RUN apt-get update && \
     apt-get install -y curl jq && \
