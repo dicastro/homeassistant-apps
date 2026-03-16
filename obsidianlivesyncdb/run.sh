@@ -46,9 +46,22 @@ if [ "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_CURRENT_HASH" != "$OBSIDIAN_LIVESYN
     fi
   done
 
-  # Required variables by init script
   echo "[Wrapper] Executing Obsidian LiveSync init script..."
-  hostname="http://127.0.0.1:5984" username="$USER_VAL" password="$PASSWORD_VAL" node="_local" bash "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT"
+
+  # Define local function to silence all curl invocations in the external script
+  curl() {
+    command curl -s "$@"
+  }
+  export -f curl # Export the function to be viewed by the 'bash script.sh' subshell
+
+  hostname="http://127.0.0.1:5984" \
+  username="$USER_VAL" \
+  password="$PASSWORD_VAL" \
+  node="_local" \
+  bash "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT"
+
+  # Removed the exposed function to do not affect subsequent invocations
+  unset -f curl
 
   # Persist hash for the next execution
   echo "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_CURRENT_HASH" > "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_HASH_FILE"

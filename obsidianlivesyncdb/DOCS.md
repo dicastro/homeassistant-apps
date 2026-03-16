@@ -4,6 +4,12 @@
 
 TBD
 
+Check for this line in logs
+
+```
+[Wrapper] Obsidian LiveSync configuration applied successfully
+```
+
 Activate *WebSocket support* and *HTTP/2* in NGINX Proxy Manager
 
 Configure the following advanced configuration in NGINX Proxy Manager
