@@ -48,7 +48,7 @@ if [ "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_CURRENT_HASH" != "$OBSIDIAN_LIVESYN
 
   # Required variables by init script
   echo "[Wrapper] Executing Obsidian LiveSync init script..."
-  hostname="127.0.0.1" username="$USER_VAL" password="$PASSWORD_VAL" node="_local" bash "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT"
+  hostname="http://127.0.0.1:5984" username="$USER_VAL" password="$PASSWORD_VAL" node="_local" bash "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT"
 
   # Persist hash for the next execution
   echo "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_CURRENT_HASH" > "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_HASH_FILE"
