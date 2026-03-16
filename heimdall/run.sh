@@ -15,6 +15,10 @@ get_opt() {
     grep -o "\"$1\": *\"[^\"]*\"" "$OPTIONS_FILE" | cut -d'"' -f4
 }
 
+# Fixed Heimdall Env Vars
+export PUID="0"
+export GUID="0"
+
 # Timezone
 TZ_VAL=$(get_opt "timezone")
 [ -n "$TZ_VAL" ] && export TZ="$TZ_VAL"
