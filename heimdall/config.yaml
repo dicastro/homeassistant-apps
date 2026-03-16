@@ -19,10 +19,15 @@ ports:
 ports_description:
   80/tcp: Web Interface
 
-image: ghcr.io/linuxserver/heimdall
 version: 2.7.6
 
 map:
   - type: data
     read_only: false
-    path: /data
+    path: /config
+
+schema:
+  timezone: "str"
+
+options:
+  timezone: "Etc/UTC"

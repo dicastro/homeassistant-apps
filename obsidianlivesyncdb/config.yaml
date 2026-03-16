@@ -1,0 +1,37 @@
+name: "Obsidian LiveSync DB"
+description: "Run the latest stable version of required db for Obsidian LiveSync plugin"
+url: "https://github.com/vrtmrz/obsidian-livesync"
+
+slug: "obsidianlivesyncdb"
+
+startup: application
+boot: auto
+init: false
+backup: cold
+
+arch:
+  - amd64
+  - aarch64
+
+ports:
+  5984/tcp: null
+
+ports_description:
+  5984/tcp: Web Interface
+
+version: 3.5.1
+
+map:
+  - type: data
+    read_only: false
+    path: /opt/couchdb/data
+  - type: addon_config
+    read_only: false
+    path: /opt/couchdb/etc/local.d
+
+schema:
+  user: "str"
+  password: "password"
+
+options:
+  user: "obsidianlivesync"

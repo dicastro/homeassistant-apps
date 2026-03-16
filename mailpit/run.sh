@@ -47,7 +47,7 @@ parse_auth_to_file "ui_auth" "$UI_AUTH_FILE"
 
 if [ -s "$UI_AUTH_FILE" ]; then
     export MP_UI_AUTH_FILE="$UI_AUTH_FILE"
-    echo "UI authentication enabled via file"
+    echo "[Wrapper] UI authentication enabled via file"
 fi
 
 # SMTP - Authentication
@@ -56,7 +56,7 @@ parse_auth_to_file "smtp_auth" "$SMTP_AUTH_FILE"
 
 if [ -s "$SMTP_AUTH_FILE" ]; then
     export MP_SMTP_AUTH_FILE="$SMTP_AUTH_FILE"
-    echo "SMTP authentication enabled via file"
+    echo "[Wrapper] SMTP authentication enabled via file"
 fi
 
 # POP3 - Authentication
@@ -65,7 +65,7 @@ parse_auth_to_file "pop3_auth" "$POP3_AUTH_FILE"
 
 if [ -s "$POP3_AUTH_FILE" ]; then
     export MP_POP3_AUTH_FILE="$POP3_AUTH_FILE"
-    echo "POP3 authentication enabled via file"
+    echo "[Wrapper] POP3 authentication enabled via file"
 fi
 
 ENTRYPOINT=$(cat /original-entrypoint 2>/dev/null)
