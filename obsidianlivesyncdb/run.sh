@@ -12,6 +12,7 @@ OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_HASH_FILE="$DATA_DIR/obsidian-livesync-cou
 # User & Password
 USER_VAL=$(jq --raw-output '.user' "$OPTIONS_FILE")
 PASSWORD_VAL=$(jq --raw-output '.password' "$OPTIONS_FILE")
+VERBOSE_INITIALIZATION_VAL=$(jq --raw-output '.verbose_initialization // false' "$OPTIONS_FILE")
 
 # Required variables for CouchDB
 export COUCHDB_USER="$USER_VAL"
@@ -48,11 +49,13 @@ if [ "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_CURRENT_HASH" != "$OBSIDIAN_LIVESYN
 
   echo "[Wrapper] Executing Obsidian LiveSync init script..."
 
-  # Define local function to silence all curl invocations in the external script
-  curl() {
-    command curl -s "$@"
-  }
-  export -f curl # Export the function to be viewed by the 'bash script.sh' subshell
+  if [ "$VERBOSE_INITIALIZATION_VAL" != "true" ]; then
+    # Define local function to silence all curl invocations in the external script
+    curl() {
+      command curl -s "$@"
+    }
+    export -f curl # Export the function to be viewed by the 'bash script.sh' subshell
+  fi
 
   hostname="http://127.0.0.1:5984" \
   username="$USER_VAL" \
@@ -61,7 +64,7 @@ if [ "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_CURRENT_HASH" != "$OBSIDIAN_LIVESYN
   bash "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT"
 
   # Removed the exposed function to do not affect subsequent invocations
-  unset -f curl
+  [ "$VERBOSE_INITIALIZATION_VAL" != "true" ] && unset -f curl
 
   # Persist hash for the next execution
   echo "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_CURRENT_HASH" > "$OBSIDIAN_LIVESYNC_COUCHDB_INIT_SCRIPT_HASH_FILE"

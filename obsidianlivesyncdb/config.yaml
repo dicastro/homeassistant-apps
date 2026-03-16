@@ -32,6 +32,8 @@ map:
 schema:
   user: "str"
   password: "password"
+  verbose_initialization: "bool?"
 
 options:
   user: "obsidianlivesync"
+  verbose_initialization: false
