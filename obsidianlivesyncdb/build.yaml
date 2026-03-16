@@ -1,6 +1,6 @@
 build_from:
-  amd64: couchdb:3.5.1
-  aarch64: couchdb:3.5.1
+  amd64: library/couchdb:3.5.1
+  aarch64: library/couchdb:3.5.1
 args:
   ORIGINAL_ENTRYPOINT: "tini -- /docker-entrypoint.sh"
   ORIGINAL_CMD: "/opt/couchdb/bin/couchdb"
