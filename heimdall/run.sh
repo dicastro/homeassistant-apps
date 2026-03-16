@@ -17,7 +17,7 @@ get_opt() {
 
 # Fixed Heimdall Env Vars
 export PUID="0"
-export GUID="0"
+export PGID="0"
 
 # Timezone
 TZ_VAL=$(get_opt "timezone")
