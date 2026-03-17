@@ -2,16 +2,20 @@
 
 ![Release][release-shield] ![Project Stage][project-stage-shield] ![Project Maintenance][maintenance-shield]
 
-TBD
+A specifically tuned CouchDB instance designed to work out-of-the-box with the [Obsidian Self-hosted LiveSync](https://github.com/vrtmrz/obsidian-livesync) plugin.
 
-## About
+## Features
 
-TBD
+* **Optimized for Obsidian:** Pre-configured settings for the LiveSync plugin
+* **Persistent Storage:** Keep your notes database safe within your Home Assistant backups
+* **Easy Access:** Simple credential management via the Home Assistant UI
 
-- Upgrades in CouchDB will be checked automatically through github actions
-- If the LiveSync plugin is upgraded, through a rebuild of the application in homeassistant, the couchdb configuration script will be downloaded again, and couchdb will be reconfigured if something changed in the configuration script
+## Quick Start
 
-https://github.com/vrtmrz/obsidian-livesync
+1. Install the application
+1. Configure your `user` and `password` in the **Configuration** tab
+1. Start the application
+1. Follow the setup wizard in the **Documentation** tab to link your Obsidian vault
 
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
