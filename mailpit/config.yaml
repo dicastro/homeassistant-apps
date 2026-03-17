@@ -1,35 +1,27 @@
 name: "Mailpit"
 description: "Run the latest stable version of Mailpit"
 url: "https://mailpit.axllent.org"
-
 slug: "mailpit"
-
 startup: application
 boot: auto
 init: false
 backup: cold
-
 arch:
   - amd64
   - aarch64
-
 ports:
   8025/tcp: null
   1025/tcp: null
   1110/tcp: null
-
 ports_description:
   8025/tcp: Web Interface
   1025/tcp: SMTP Port
   1110/tcp: POP3 Port
-
 version: v1.29.3
-
 map:
   - type: data
     read_only: false
     path: /data
-
 schema:
   timezone: "str"
   ui_auth:
@@ -41,7 +33,6 @@ schema:
   pop3_auth:
     - user: str?
       pass: password?
-
 options:
   timezone: "Etc/UTC"
   ui_auth: []

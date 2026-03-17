@@ -1,31 +1,23 @@
 name: "Tandoor Recipes"
 description: "Run the latest stable version of Tandoor Recipes"
 url: "https://tandoor.dev"
-
 slug: "tandoor"
-
 startup: application
 boot: auto
 init: false
 backup: cold
-
 arch:
   - amd64
   - aarch64
-
 ports:
   8080/tcp: null
-
 ports_description:
   8080/tcp: Web Interface
-
 version: 2.5.3
-
 map:
   - type: data
     read_only: false
     path: /data
-
 schema:
   timezone: "str"
   enable_signup: "bool"
@@ -38,7 +30,6 @@ schema:
     password: "password?"
     use_tls: "bool?"
     default_from_email: "str?"
-
 options:
   timezone: "Etc/UTC"
   enable_signup: "true"

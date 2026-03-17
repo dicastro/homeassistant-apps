@@ -93,17 +93,22 @@ for dir in */ ; do
       # This regex replaces the version after the last colon in any string under build_from
       yq -i '.build_from[] |= sub(":.*$", ":" + "'"$NEW_VERSION"'")' "$app/build.yaml"
 
-      echo "Fetching metadata (via Skopeo) from $FULL_IMAGE_REF:$NEW_VERSION..."
       METADATA=$(skopeo inspect --config "$FULL_IMAGE_REF:$NEW_VERSION")
 
       if [ $? -eq 0 ]; then
-        export EP_VAL=$(echo "$METADATA" | jq -c '.config.Entrypoint // []')
-        export CMD_VAL=$(echo "$METADATA" | jq -c '.config.Cmd // []')
+        export EP_VAL=$(echo "$METADATA" | jq -c '.config.Entrypoint // [] | join(" ")')
+        export CMD_VAL=$(echo "$METADATA" | jq -c '.config.Cmd // [] | join(" ")')
 
         yq -i '.args.ORIGINAL_ENTRYPOINT = env(EP_VAL) | .args.ORIGINAL_CMD = env(CMD_VAL)' "${app}/build.yaml"
       else
         echo "Error: Could not fetch metadata (via Skopeo) from $FULL_IMAGE_REF:$NEW_VERSION for $app"
       fi
+    fi
+
+    # 4. Update README.md release shield
+    if [ -f "${app}/README.md" ]; then
+      # The regex matches: https://img.shields.io/badge/version-[ANYTHING]-[ANY TEXT REPRESENTING COLOR].svg
+      sed -i -E "s|\[release-shield\]: https://img\.shields\.io/badge/version-.*-([a-z]+)\.svg|[release-shield]: https://img.shields.io/badge/version-$NEW_VERSION-\1.svg|g" "${app}/README.md"
     fi
   else
     echo "  App ${app} is up to date."
