@@ -15,16 +15,16 @@ Activate *WebSocket support* and *HTTP/2* in NGINX Proxy Manager
 Configure the following advanced configuration in NGINX Proxy Manager
 
 ```
-# Aumentar el tamaño máximo de subida para notas con adjuntos grandes
-client_max_body_size 0; # El 0 desactiva el límite en NGINX, mandan los 4GB de CouchDB
+# Increase maximum upload size for notes with large attachments
+client_max_body_size 0; # 0 disables the limit in NGINX; CouchDB's 4GB limit takes precedence
 
-# Optimización para conexiones largas (necesario para el feed de cambios de CouchDB)
+# Optimization for long-lived connections (required for CouchDB's changes feed)
 proxy_read_timeout 3600s;
 proxy_send_timeout 3600s;
 proxy_connect_timeout 3600s;
 
-# Configuración de Buffering
-# Se desactiva para que la sincronización en tiempo real sea instantánea
+# Buffering Configuration
+# Disabled to ensure near-instant real-time synchronization
 proxy_buffering off;
 proxy_request_buffering off;
 ```
