@@ -1,33 +1,24 @@
 name: "Heimdall"
 description: "Run the latest stable version of Heimdall"
 url: "https://heimdall.site"
-
 slug: "heimdall"
-
 startup: application
 boot: auto
 init: false
 backup: cold
-
 arch:
   - amd64
   - aarch64
-
 ports:
   80/tcp: null
-
 ports_description:
   80/tcp: Web Interface
-
 version: 2.7.6
-
 map:
   - type: data
     read_only: false
     path: /config
-
 schema:
   timezone: "str"
-
 options:
   timezone: "Etc/UTC"

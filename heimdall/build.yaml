@@ -1,6 +1,6 @@
 build_from:
-  amd64: ghcr.io/linuxserver/heimdall:2.7.6
-  aarch64: ghcr.io/linuxserver/heimdall:2.7.6
+  amd64: linuxserver/heimdall:2.7.6
+  aarch64: linuxserver/heimdall:2.7.6
 args:
   ORIGINAL_ENTRYPOINT: "/init"
   ORIGINAL_CMD: ""

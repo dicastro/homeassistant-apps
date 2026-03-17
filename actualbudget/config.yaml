@@ -1,27 +1,20 @@
 name: "Actual Budget"
 description: "Run the latest stable version of Actual Budget"
 url: "https://actualbudget.org"
-
 slug: "actualbudget"
-
 startup: application
 boot: auto
 init: false
 backup: cold
-
 arch:
   - amd64
   - aarch64
-
 ports:
   5006/tcp: null
-
 ports_description:
   5006/tcp: Web Interface
-
-image: ghcr.io/actualbudget/actual
+image: actualbudget/actual-server
 version: 26.3.0
-
 map:
   - type: data
     read_only: false

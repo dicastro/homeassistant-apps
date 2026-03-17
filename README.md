@@ -28,6 +28,31 @@ For example this repo `https://github.com/dicastro/homeassistant-apps` has the h
 
 The 8 first digits have to be used to reference that repo: `1da1ede7`
 
+## Add new app
+
+TBD
+
+Sample of `upgrade.yaml` for application using github releases:
+
+```
+upgrade_config:
+  source: "github_releases"
+  repo: "tandoorrecipes/recipes"
+  version: "2.5.3"
+```
+
+> In some cases the repo is using github releases, however the registered `tag_name` for the release does not match any tag in the docker registry. This fact avoids using the `github_releases` as the `source`. An example would be `actualbudget`, the `tag_name` in the releases is `v26.3.0`, however it should be `26.3.0`, that's why github releases cannot be used for actualbudget application upgrade
+
+Sample of `upgrade.yaml` for application using docker hub:
+
+```
+upgrade_config:
+  source: "docker_hub"
+  image: "library/couchdb"
+  # This regex ensures we only get stable versions like 3.3.3
+  tag_regex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+```
+
 ## How to develop an App
 
 https://developers.home-assistant.io/docs/apps

@@ -1,1 +1,4 @@
-github: axllent/mailpit
+upgrade_config:
+  source: "github_releases"
+  repo: "axllent/mailpit"
+  version: "v1.29.3"

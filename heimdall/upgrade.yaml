@@ -1,1 +1,6 @@
-github: linuxserver/heimdall
+upgrade_config:
+  source: "docker_hub"
+  image: "linuxserver/heimdall"
+  version: "2.7.6"
+  # This regex ensures we only get stable versions like 26.3.0
+  tag_regex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"

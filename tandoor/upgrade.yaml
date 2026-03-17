@@ -1,1 +1,4 @@
-github: tandoorrecipes/recipes
+upgrade_config:
+  source: "github_releases"
+  repo: "tandoorrecipes/recipes"
+  version: "2.5.3"

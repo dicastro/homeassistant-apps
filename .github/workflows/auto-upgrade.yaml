@@ -1,0 +1,37 @@
+name: Scheduled App Upgrade Check
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"  # Every Monday at 03:00
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  check-versions:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Tools
+        run: |
+          sudo apt update
+          sudo apt install -y bash ca-certificates curl wget jq git skopeo
+          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+
+      - name: Run upgrade script
+        run: |
+          chmod +x .github/scripts/upgrader.sh
+          ./.github/scripts/upgrader.sh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push changes
+        uses: stefanzwifel/git-auto-commit-action@v5
+        with:
+          commit_message: "automated app version upgrade"
+          file_pattern: "**/config.yaml **/build.yaml **/upgrade.yaml"

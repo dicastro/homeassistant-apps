@@ -1,1 +1,6 @@
-github: actualbudget/actual
+upgrade_config:
+  source: "docker_hub"
+  image: "actualbudget/actual-server"
+  version: "26.3.0"
+  # This regex ensures we only get stable versions like 26.3.0
+  tag_regex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
