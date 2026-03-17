@@ -1,62 +1,101 @@
 # My Home Assistant Apps
 
-# Installation
+This repository contains a collection of applications for Home Assistant that are not available in the official or community repositories. I decided to create and maintain these to streamline my daily workflow and ensure I have access to the specific tools I need within my Home Assistant ecosystem.
 
-## Apps repository
+## 🚀 Installation
 
-First to install use the following link to add the repository:
+### Add Application Repository
 
-[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps)
+Click the badge below to add this repository to your Home Assistant instance automatically:
 
-> In order to work this link above you have to configure [my.home-assistant.io](https://my.home-assistant.io) to point to your home assistant instance (read the [FAQ](https://my.home-assistant.io/faq) for more information).
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps)
 
-Alternatively go to the *Application Store*, Click the *three dots*, then *Repositories*, and then add the following:
+> **Note:** For the link above to work, you must configure [my.home-assistant.io](https://my.home-assistant.io) to point to your instance (read the [FAQ](https://my.home-assistant.io/faq) for more information).
+
+**Manual Installation:**
+
+1. Navigate to the **Application Store** in Home Assistant
+2. Click the **three dots** (top right) > **Repositories**
+3. Add the following URL
 
 ```
 https://github.com/dicastro/homeassistant-apps
 ```
 
-# Notes
+## ✅ Advantages
 
-## How to get the hash of a GitHub repo needed to create links to install the app
+Using these applications within Home Assistant provides several benefits:
 
-It is hashing using SHA1
+* **Automated Updates:** This repository uses a custom GitHub Actions workflow that automatically checks for new upstream versions (via GitHub Releases or Docker Hub) and updates the app metadata.
+* **Seamless Upgrades:** Home Assistant notifies you immediately when a new version is available, allowing for one-click upgrades.
+* **Safety First:** Home Assistant supports creating an automatic backup before performing any application upgrade, ensuring you can revert if needed.
 
-An [online tool](https://emn178.github.io/online-tools/sha1.html) can be used to hash the URL of a repo
+## 📦 Included Applications
 
-For example this repo `https://github.com/dicastro/homeassistant-apps` has the hash `1da1ede79372013ce13f7daec6a59afa74b101d9`
+| Application                                                                                         | Install                                                                               | Description                                                                              |
+|:----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| [ActualBudget](https://github.com/dicastro/homeassistant-apps/tree/main/actualbudget)               | [![Open this app in your Home Assistant instance][app-badge]][actualbudget-app]       | A local-first personal finance tool and 100% free and open-source.                       |
+| [Heimdall](https://github.com/dicastro/homeassistant-apps/tree/main/heimdall)                       | [![Open this app in your Home Assistant instance][app-badge]][heimdall-app]           | An elegant dashboard to centralize links to all your web applications.                   |
+| [Mailpit](https://github.com/dicastro/homeassistant-apps/tree/main/mailpit)                         | [![Open this app in your Home Assistant instance][app-badge]][mailpit-app]            | Email testing tool for developers (SMTP server with web UI).                             |
+| [Obsidian LiveSync DB](https://github.com/dicastro/homeassistant-apps/tree/main/obsidianlivesyncdb) | [![Open this app in your Home Assistant instance][app-badge]][obsidianlivesyncdb-app] | A specifically configured CouchDB instance for the Obsidian Self-hosted LiveSync plugin. |
+| [Tandoor Recipes](https://github.com/dicastro/homeassistant-apps/tree/main/tandoor)                 | [![Open this app in your Home Assistant instance][app-badge]][tandoor-app]            | A comprehensive recipe manager to manage your cooking recipes and meal planning. |
 
-The 8 first digits have to be used to reference that repo: `1da1ede7`
+## 🌐 External Access & Security
 
-## Add new app
+Access to these applications is designed to be managed through **NGINX Proxy Manager** (available in the official Home Assistant Community Apps).
 
-TBD
+Each application folder contains a `DOC.md` file with a **"Recommended Proxy Configuration"** section, detailing how to set up proxy hosts, SSL, and security headers for that specific app.
 
-Sample of `upgrade.yaml` for application using github releases:
+## ❓ FAQ & Development Notes
 
-```
+### How to add a new Application
+
+If you want to contribute or add a new app to your local fork:
+
+1. Refer to the [Official Home Assistant Developer Documentation](https://developers.home-assistant.io/docs/add-ons).
+2. **Auto-Update System:** I have implemented a custom `upgrade.yaml` file in each app folder. This allows the GitHub workflow to sync versions automatically.
+
+**Sample `upgrade.yaml` (GitHub Source):**
+
+```yaml
 upgrade_config:
   source: "github_releases"
   repo: "tandoorrecipes/recipes"
   version: "2.5.3"
 ```
 
-> In some cases the repo is using github releases, however the registered `tag_name` for the release does not match any tag in the docker registry. This fact avoids using the `github_releases` as the `source`. An example would be `actualbudget`, the `tag_name` in the releases is `v26.3.0`, however it should be `26.3.0`, that's why github releases cannot be used for actualbudget application upgrade
+> Note: If a GitHub `tag_name` (e.g., `v26.3.0`) does not match the Docker Registry tag (e.g., `26.3.0`), use `docker_hub` as the source instead.
 
-Sample of `upgrade.yaml` for application using docker hub:
+**Sample `upgrade.yaml` (Docker Hub Source):**
 
-```
+```yaml
 upgrade_config:
   source: "docker_hub"
   image: "library/couchdb"
-  # This regex ensures we only get stable versions like 3.3.3
+  version: "3.5.1"
+  # This regex ensures we only get stable versions like 3.5.1
   tag_regex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
 ```
 
-## How to develop an App
+### Repository Hashing (for Installation Links)
 
-https://developers.home-assistant.io/docs/apps
+Home Assistant uses a SHA1 hash of the repository URL to generate unique identifiers.
 
-## Official Community Apps
+- Example URL: `https://github.com/dicastro/homeassistant-apps`
+- Full SHA1 Hash: `1da1ede79372013ce13f7daec6a59afa74b101d9`
+- App ID Prefix: Use the first 8 characters (`1da1ede7`) to reference this repository in deep links.
 
-https://github.com/hassio-addons/repository
+You can use an [online tool](https://emn178.github.io/online-tools/sha1.html) to calculate hashes for other repositories.
+
+## 🔗 Useful Links
+
+- [Official Home Assistant Apps Documentation](https://developers.home-assistant.io/docs/add-ons)
+- [Official Home Assistant Community Apps Repo](https://github.com/hassio-addons/repository)
+
+
+[app-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
+[actualbudget-app]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=1da1ede7_actualbudget&repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps
+[heimdall-app]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=1da1ede7_heimdall&repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps
+[mailpit-app]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=1da1ede7_mailpit&repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps
+[obsidianlivesyncdb-app]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=1da1ede7_obsidianlivesyncdb&repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps
+[tandoor-app]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=1da1ede7_tandoor&repository_url=https%3A%2F%2Fgithub.com%2Fdicastro%2Fhomeassistant-apps
