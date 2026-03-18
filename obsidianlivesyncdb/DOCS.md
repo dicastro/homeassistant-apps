@@ -92,12 +92,12 @@ If the Obsidian plugin is updated and its CouchDB requirements change, the app's
 
 ## 💾 Data & Backups
 
-The application persists data across two different locations:
+The application persists data across the locations:
 
-- **Database Content**: Stored in `/opt/couchdb/data` (mapped to HA `data` partition).
-- **Configuration**: Stored in `/opt/couchdb/etc/local.d` (mapped to HA `addon_config` partition).
+- `/opt/couchdb/data` (mapped to HA `data` partition): database content
+- `/opt/couchdb/etc/local.d` (mapped to HA `addon_config` partition): configuration
 
-**Both locations are automatically included** when Home Assistant performs a backup of this application.
+These locations automatically managed by Home Assistant, meaning all your information **is automatically included** in your Home Assistant backups/snapshots.
 
 ## 🎛️ Administration Console (Fauxton)
 
