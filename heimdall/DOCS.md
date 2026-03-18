@@ -16,7 +16,9 @@ timezone: "Europe/Madrid"
 
 ### Option: `timezone`
 
-The timezone assigned to the application (e.g., Europe/Madrid, Etc/UTC). This ensures scheduled tasks and logs reflect the correct time.
+The timezone assigned to the application (e.g., Europe/Madrid, Etc/UTC).
+
+You can get a list of timezones [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
 ## 🌐 Recommended Proxy Configuration
 
@@ -34,15 +36,20 @@ The timezone assigned to the application (e.g., Europe/Madrid, Etc/UTC). This en
 
 The application persists data across the locations:
 
-1. `/config` (mapped to HA `data` partition): this includes the database with your links, user settings, app configurations and visual assets (custom icons and background images)
+- `/config` (mapped to HA `data` partition): this includes the database with your links, user settings, app configurations and visual assets (custom icons and background images)
 
 These locations automatically managed by Home Assistant, meaning all your information **is automatically included** in your Home Assistant backups/snapshots.
 
 ## 📝 Technical Notes
 
-### Permissions (PUID/PGID)
+### Wrapper Configurations
 
-The application is configured via a wrapper to run with `PUID: 1000` and `PGID: 1000`. On every startup, the wrapper automatically adjusts the ownership of the `/config` directory to these IDs. This ensures that even if the base image defaults change, your data remains accessible and correctly permissioned.
+The application uses a custom wrapper script to set specific environment variables that ensure stability and correct file handling within the Home Assistant environment:
+
+- **Permissions (PUID/PGID)**: The application is forced to run with `PUID: 1000` and `PGID: 1000`
+- **Ownership Management**: On every startup, the wrapper automatically ensures that the entire `/config` directory is owned by these IDs
+
+**Why this matters:** This prevents "Permission Denied" errors if you manually move files or if the base image defaults change in future updates. It ensures your data remains accessible and correctly permissioned for the internal web server.
 
 ## ❓ FAQ
 
