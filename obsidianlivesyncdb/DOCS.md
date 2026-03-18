@@ -2,7 +2,7 @@
 
 This application provides a CouchDB server optimized for the Obsidian Self-hosted LiveSync plugin.
 
-## Configuration
+## ⚙️ Configuration
 
 **Note**: _Remember to restart the app when the configuration is changed._
 
@@ -28,17 +28,7 @@ The admin password (keep it secure)
 
 Enable detailed logs during the startup/tuning process
 
-## 🛠 Administration Console (Fauxton)
-
-CouchDB includes a built-in web interface called **Fauxton** for database management.
-
-You can access it at: `http://<YOUR_HOME_ASSISTANT_IP>:5984/_utils/`
-
-**Note:** Use the credentials defined in your configuration tab to log in
-
 ## 🌐 Recommended Proxy Configuration
-
-To sync your vault from outside your home network, you should expose this app through a proxy like NGINX Proxy Manager or similar.
 
 | Configuration      | Value                                                    |
 |:-------------------|:---------------------------------------------------------|
@@ -50,9 +40,7 @@ To sync your vault from outside your home network, you should expose this app th
 | HTTP/2 Support     | Enabled                                                  |
 | SSL                | Force SSL enabled with a valid Let's Encrypt certificate |
 
-**Advanced Nginx Snippet (Custom Nginx Configuration):**
-
-Add this to the *Advanced* tab:
+**Advanced Nginx Snippet**
 
 ```nginx
   # Increase maximum upload size for notes with large attachments
@@ -69,6 +57,33 @@ Add this to the *Advanced* tab:
   proxy_request_buffering off;
 ```
 
+## 🔗 Link your Obsidian Vault
+
+### A. Setup the First Device
+
+Follow these steps if this is the first time you are connecting an Obsidian vault to this database:
+
+1. Install the **Self-hosted LiveSync** plugin in Obsidian
+1. Open the plugin settings and run the Setup Wizard
+1. Select **CouchDB** as your remote type
+1. Provide your connection details:
+    - URL: `https://obsidianlivesyncdb.<YOUR_DOMAIN>`
+    - Username: the `user` set in configuration
+    - Password: the `password` set in configuration
+    - Database name: the database name used for synchronization (e.g. `obsidian-vault`)
+1. Complete the wizard
+1. **Enable Synchronization** in the plugin settings
+
+### B. Setup Additional Devices
+
+Once you have one device linked, adding more is much simpler:
+
+1. On the already linked device, go to the plugin settings and select **Copy current configuration to clipboard** (this generates a setup link/string)
+1. Install the plugin on the new device
+1. Open the plugin settings and select **Use the setup link from another device**
+1. Paste the configuration string
+1. **Enable Synchronization** on the new device.
+
 ## ⚠️ Updates & Plugin Requirements
 
 The initialization script applies specific CouchDB tuning required by the **Self-hosted LiveSync** plugin.
@@ -84,8 +99,10 @@ The application persists data across two different locations:
 
 **Both locations are automatically included** when Home Assistant performs a backup of this application.
 
-## First Time Setup
+## 🎛️ Administration Console (Fauxton)
 
-1. Once the app is running, open Obsidian
-1. Go to **Settings > Community Plugins > Self-hosted LiveSync**
-1. Run the **Setup Wizard** provided by the plugin
+CouchDB includes a built-in web interface called **Fauxton** for database management.
+
+You can access it at: `http://<YOUR_HOME_ASSISTANT_IP>:5984/_utils/`
+
+**Note:** Use the credentials defined in your configuration tab to log in
