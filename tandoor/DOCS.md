@@ -40,14 +40,31 @@ A list of hostnames/domains that this Tandoor instance can serve.
 
 ### Option: `email`
 
-Configuration block for SMTP (Host, Port, User, Password, TLS).
+This configuration block allows Tandoor to send notifications, password resets, and user invites.
 
 #### Sub-option: `host`
+
+The hostname or IP address of your SMTP server. Use `1da1ede7-mailpit` if you are using the [internal Mailpit](https://github.com/dicastro/homeassistant-apps/tree/main/mailpit) instance.
+
 #### Sub-option: `port`
+
+The port used by your SMTP server. Typically `1025` for the [internal Mailpit](https://github.com/dicastro/homeassistant-apps/tree/main/mailpit) instance, or `465`/`587` for external providers (like Gmail or SendGrid).
+
 #### Sub-option: `user`
+
+The username for SMTP authentication. This can be left blank if your SMTP server (like a default Mailpit setup) does not require authentication.
+
 #### Sub-option: `password`
+
+The password for the SMTP user. Keep this secure and leave it blank if no authentication is required.
+
 #### Sub-option: `use_tls`
+
+Set to `true` to enable an encrypted connection (TLS/STARTTLS). For [internal Mailpit](https://github.com/dicastro/homeassistant-apps/tree/main/mailpit) instance, this should be set to `false`.
+
 #### Sub-option: `default_from_email`
+
+The email address that will appear as the sender of the emails (e.g., `no-reply@recipes.<YOUR_DOMAIN>`).
 
 ## 🌐 Recommended Proxy Configuration
 
