@@ -12,10 +12,10 @@ It is **highly recommended** to use a Reverse Proxy for stable access. Personall
 
 ## Features
 
-* **Privacy First:** Your financial data stays local and under your control
-* **Budgeting Simplified:** High-performance envelope budgeting system
-* **Multi-device Sync:** Seamlessly sync your budget between your devices
-* **Reporting:** Built-in tools to visualize your spending and net worth trends
+- **Privacy First:** Your financial data stays local and under your control
+- **Budgeting Simplified:** High-performance envelope budgeting system
+- **Multi-device Sync:** Seamlessly sync your budget between your devices
+- **Reporting:** Built-in tools to visualize your spending and net worth trends
 
 ## Quick Start
 
