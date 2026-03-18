@@ -95,4 +95,4 @@ The application uses a custom wrapper script to set specific environment variabl
 
 ## 🔗 Useful Links
 
-- [Mailpit configuration documentation](https://mailpit.axllent.org/docs/configuration)
+- [Mailpit Configuration Documentation](https://mailpit.axllent.org/docs/configuration)
