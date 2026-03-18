@@ -24,8 +24,10 @@ If you encounter timeouts during synchronization, plan to attach documents to yo
 **Advanced Nginx Snippet**
 
 ```nginx
+  # Increase maximum upload size for creating transactions with large attachments or loading large backup files
   client_max_body_size 20M;
 
+  # Optimization for long-lived connections
   proxy_read_timeout 300s;
   proxy_connect_timeout 300s;
   proxy_send_timeout 300s;
