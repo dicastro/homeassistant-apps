@@ -87,6 +87,16 @@ Home Assistant uses a SHA1 hash of the repository URL to generate unique identif
 
 You can use an [online tool](https://emn178.github.io/online-tools/sha1.html) to calculate hashes for other repositories.
 
+### How to see environment variables of a process
+
+```
+> cat /proc/<PID>/environ | tr '\0' '\n'
+
+# e.g. Main process of a container has PID=1
+
+> cat /proc/1/environ | tr '\0' '\n'
+```
+
 ## 🔗 Useful Links
 
 - [Official Home Assistant Apps Documentation](https://developers.home-assistant.io/docs/add-ons)
