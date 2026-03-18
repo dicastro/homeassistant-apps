@@ -12,9 +12,9 @@ It is **highly recommended** to use a Reverse Proxy for stable access. Personall
 
 ## Features
 
-* **Optimized for Obsidian:** Pre-configured settings for the LiveSync plugin
-* **Persistent Storage:** Keep your notes database safe within your Home Assistant backups
-* **Easy Access:** Simple credential management via the Home Assistant UI
+- **Optimized for Obsidian:** Pre-configured settings for the LiveSync plugin
+- **Persistent Storage:** Keep your notes database safe within your Home Assistant backups
+- **Easy Access:** Simple credential management via the Home Assistant UI
 
 ## Quick Start
 
