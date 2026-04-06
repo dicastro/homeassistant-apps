@@ -1,4 +1,4 @@
 upgrade_config:
   source: "github_releases"
   repo: "tandoorrecipes/recipes"
-  version: "2.6.1"
+  version: "2.6.4"

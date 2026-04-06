@@ -14,7 +14,7 @@ ports:
 ports_description:
   5006/tcp: Web Interface
 image: actualbudget/actual-server
-version: 26.3.0
+version: 26.4.0
 map:
   - type: data
     read_only: false
