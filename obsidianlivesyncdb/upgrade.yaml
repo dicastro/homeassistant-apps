@@ -1,6 +1,6 @@
 upgrade_config:
   source: "docker_hub"
   image: "library/couchdb"
-  version: "3.5.1"
+  version: "3.4.3"
   # This regex ensures we only get stable versions like 3.5.1
   tag_regex: "^[0-9]+\\.[0-9]+\\.[0-9]+$"

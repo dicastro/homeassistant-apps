@@ -1,6 +1,6 @@
 build_from:
-  amd64: ghcr.io/tandoorrecipes/recipes:2.6.4
-  aarch64: ghcr.io/tandoorrecipes/recipes:2.6.4
+  amd64: ghcr.io/tandoorrecipes/recipes:2.6.6
+  aarch64: ghcr.io/tandoorrecipes/recipes:2.6.6
 args:
   ORIGINAL_ENTRYPOINT: "/sbin/tini -- /opt/recipes/boot.sh"
   ORIGINAL_CMD: ""
