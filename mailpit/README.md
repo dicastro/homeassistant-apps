@@ -29,4 +29,4 @@ It is **highly recommended** to use a Reverse Proxy for stable access. Personall
 
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production-brightgreen.svg
-[release-shield]: https://img.shields.io/badge/version-v1.29.6-blue.svg
+[release-shield]: https://img.shields.io/badge/version-v1.29.7-blue.svg

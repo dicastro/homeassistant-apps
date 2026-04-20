@@ -13,7 +13,7 @@ ports:
   8080/tcp: null
 ports_description:
   8080/tcp: Web Interface
-version: 2.6.6
+version: 2.6.9
 map:
   - type: data
     read_only: false

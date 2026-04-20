@@ -17,7 +17,7 @@ ports_description:
   8025/tcp: Web Interface
   1025/tcp: SMTP Port
   1110/tcp: POP3 Port
-version: v1.29.6
+version: v1.29.7
 map:
   - type: data
     read_only: false
