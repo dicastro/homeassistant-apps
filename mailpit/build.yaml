@@ -1,6 +1,6 @@
 build_from:
-  amd64: ghcr.io/axllent/mailpit:v1.30.2
-  aarch64: ghcr.io/axllent/mailpit:v1.30.2
+  amd64: ghcr.io/axllent/mailpit:v1.30.3
+  aarch64: ghcr.io/axllent/mailpit:v1.30.3
 args:
   ORIGINAL_ENTRYPOINT: "/mailpit"
   ORIGINAL_CMD: ""
