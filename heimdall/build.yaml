@@ -1,6 +1,6 @@
 build_from:
-  amd64: linuxserver/heimdall:2.8.2
-  aarch64: linuxserver/heimdall:2.8.2
+  amd64: linuxserver/heimdall:2.8.3
+  aarch64: linuxserver/heimdall:2.8.3
 args:
   ORIGINAL_ENTRYPOINT: "/init"
   ORIGINAL_CMD: ""
